@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find . -name .git -type d -mindepth 2 -maxdepth 2 -print -execdir git "$@" \;

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for project in `cat subprojects`; do
+	if [ ! -d $project ]; then
+		git clone https://github.com/scalaspring/${project}.git
+	else
+		echo Project $project already cloned, skipping
+	fi
+done
+	
