@@ -3,18 +3,18 @@ import Keys._
 
 object AllBuild extends Build {
 	  
-	lazy val ScalaSpringAll = project in file(".") aggregate(ScalaTestSpring, AkkaSpringBoot, AkkaHttpSpringBoot, AkkaHttpSpringBootActivator)
-	ScalaSpringAll.settings(
+	lazy val `scalaspring-all` = project in file(".") aggregate(`scalatest-spring`, `akka-spring-boot`, `akka-http-spring-boot`)
+	`scalaspring-all`.settings(
 		publish := {},
     scalacOptions       ++= Seq("-feature", "-deprecation")
   )
 
-	lazy val ScalaTestSpring = project in file("scalatest-spring")
+	lazy val `scalatest-spring` = project in file("scalatest-spring")
 
-	lazy val AkkaSpringBoot = project in file("akka-spring-boot") dependsOn (ScalaTestSpring % "test->compile")
+	lazy val `akka-spring-boot` = project in file("akka-spring-boot") dependsOn (`scalatest-spring` % "test->compile")
 
-	lazy val AkkaHttpSpringBoot = project in file("akka-http-spring-boot") dependsOn (AkkaSpringBoot, ScalaTestSpring % "test->compile")
+	lazy val `akka-http-spring-boot` = project in file("akka-http-spring-boot") dependsOn (`akka-spring-boot`, `scalatest-spring` % "test->compile")
 
-	lazy val AkkaHttpSpringBootActivator = project in file("akka-http-spring-boot-activator") dependsOn (AkkaHttpSpringBoot, ScalaTestSpring % "test->compile")
+//	lazy val `akka-http-spring-boot-activator` = project in file("akka-http-spring-boot-activator") dependsOn (`akka-http-spring-boot`, `scalatest-spring` % "test->compile")
 
 }
